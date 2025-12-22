@@ -27,6 +27,13 @@ const (
 
 // TODO:
 // - [] methods for Task
+// 	- [] Add new task
+// 	- [] Update an old task based on Id
+// 	- [] Delete a task based on id
+// 	- [] List all tasks
+// 	- [] List all tasks that are not done [0]
+// 	- [] List all tasks that are in progress [1]
+// 	- [] List all tasks that are done [2]
 // - [] cli repl question that asks for name of new task and the description
 
 // This is not a method
