@@ -25,3 +25,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 }
+
+// TODO:
+// - [] How to edit files in goLang

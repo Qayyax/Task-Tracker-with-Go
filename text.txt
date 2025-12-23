@@ -1,0 +1,4 @@
+This is the first line here
+here is the second line, 
+We are practicing how to print text in golang
+I mean, print text from file
