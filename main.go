@@ -25,6 +25,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 	readFile()
+	printLogFile()
 }
 
 // TODO:

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 )
@@ -25,5 +26,27 @@ func printLastNlines(lines []string, num int) []string {
 }
 
 func printLogFile() {
+	filepath := "log.txt"
+	// we want to open this file to read line by line
+	logFile, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file: ", err)
+	}
+	defer logFile.Close()
+	var lines []string
+	scanner := bufio.NewScanner(logFile)
 
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading file:", err)
+	}
+
+	// print the last 10 lines of the file
+	printLastNlines := printLastNlines(lines, 10)
+	for i, line := range printLastNlines {
+		fmt.Println("line number:", ":", i, line)
+		fmt.Println("________")
+	}
 }
