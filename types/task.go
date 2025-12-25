@@ -58,6 +58,8 @@ func NewTask(name string, description string) *Task {
 		UpdatedAt:   time.Now(),
 	}
 	return &task
+	// TODO:
+	// ADD this task to tasks.json
 }
 
 func IsTaskFileExist() bool {
@@ -95,4 +97,23 @@ func checkLastTaskId() int {
 
 	lastTask := tasks[len(tasks)-1]
 	return lastTask.Id
+}
+
+func AddToTasks(task Task) {
+	filepath := "tasks.json"
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", " ")
+	err = encoder.Encode(task)
+	if err != nil {
+		fmt.Printf("Error encoding JSON to %s\nERROR: %v", filepath, err)
+		return
+	}
+	fmt.Println("Added new task to tasks.json")
 }

@@ -10,18 +10,22 @@ import (
 
 func main() {
 	fmt.Println("Testing the Task struct")
-	// fmt.Println("Current time is: ", time.Now())
-	task1 := types.NewTask("First task", "Just to see if this works")
-	fmt.Println("Name from new Task", task1.Name)
-
+	// cli to ask for task name, task description
+	// task1 := types.NewTask("First task", "Just to see if this works")
+	// fmt.Println("Name from new Task", task1.Name)
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Print("What is your name? ")
+	fmt.Printf("What is the name of your first task: ")
 	scanner.Scan()
-	input := scanner.Text()
-
-	fmt.Printf("You entered: %s\n", input)
-
+	taskName := scanner.Text()
+	fmt.Printf("What is the description of your task?\n")
+	scanner.Scan()
+	taskDescription := scanner.Text()
 	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
+		fmt.Fprintln(os.Stderr, "Error reading from input:", err)
+		panic(err)
 	}
+	task1 := types.NewTask(taskName, taskDescription)
+	fmt.Println("Name from new Task", task1.Name)
+	fmt.Println("Description from new Task", task1.Description)
+	types.AddToTasks(*task1)
 }
