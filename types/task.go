@@ -101,18 +101,23 @@ func checkLastTaskId() int {
 
 func AddToTasks(task Task) {
 	filepath := "tasks.json"
+	var tasks []Task
 
-	file, err := os.Open(filepath)
-	if err != nil {
-		fmt.Println("Error opening file", err)
+	content, err := os.ReadFile(filepath)
+	if err == nil && len(content) > 0 {
+		json.Unmarshal(content, &tasks)
 	}
-	defer file.Close()
+	tasks = append(tasks, task)
 
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", " ")
-	err = encoder.Encode(task)
+	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")
 	if err != nil {
 		fmt.Printf("Error encoding JSON to %s\nERROR: %v", filepath, err)
+		return
+	}
+
+	err = os.WriteFile(filepath, updateTasksFile, 0644)
+	if err != nil {
+		fmt.Println("Error writing json to file:", err)
 		return
 	}
 	fmt.Println("Added new task to tasks.json")
