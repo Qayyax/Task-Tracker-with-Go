@@ -1,6 +1,10 @@
 package types
 
-import "time"
+import (
+	"fmt"
+	"os"
+	"time"
+)
 
 // - `id`: A unique identifier for the task
 // - `description`: A short description of the task
@@ -48,4 +52,21 @@ func NewTask(name string, description string) *Task {
 		CreatedAt:   time.Now(),
 	}
 	return &task
+}
+
+func IsTaskFile() (bool, error) {
+	filepath := "tasks.json"
+	data, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Tasks.json does not exist")
+
+		newTaskFile, err := os.Create(filepath)
+		if err != nil {
+			panic(err)
+		}
+		defer newTaskFile.Close()
+		defer data.Close()
+		return false, err
+	}
+	return true, nil
 }

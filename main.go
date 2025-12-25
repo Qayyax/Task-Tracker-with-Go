@@ -24,8 +24,4 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
-	// readFile()
-	// printLogFile()
-	// newTask()
-	readJson()
 }
