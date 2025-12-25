@@ -48,13 +48,14 @@ func NewTask(name string, description string) *Task {
 	if isTaskFile != true {
 		panic("Didn't create a new file")
 	}
-	// should check for last id in the json file
+	lastId := checkLastTaskId() + 1
 	task := Task{
-		Id:          1, // change this to check for id
+		Id:          lastId,
 		Name:        name,
 		Description: description,
 		Status:      Todo,
 		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 	return &task
 }
@@ -88,6 +89,10 @@ func checkLastTaskId() int {
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&tasks)
+	if len(tasks) < 1 {
+		return 0
+	}
+
 	lastTask := tasks[len(tasks)-1]
 	return lastTask.Id
 }
