@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -72,4 +73,21 @@ func IsTaskFileExist() bool {
 	}
 	defer data.Close()
 	return true
+}
+
+func checkLastTaskId() int {
+	IsTaskFileExist()
+	filepath := "tasks.json"
+	var tasks []Task
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&tasks)
+	lastTask := tasks[len(tasks)-1]
+	return lastTask.Id
 }
