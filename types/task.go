@@ -13,12 +13,13 @@ import (
 // - `updatedAt`: The date and time when the task was last updated
 
 type Task struct {
-	Id          int
-	Name        string
-	Description string
-	Status      Status // [0] todo, [1] in-progress, [2] done
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	// [0] todo, [1] in-progress, [2] done
+	Status    Status    `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Status int
@@ -42,8 +43,11 @@ const (
 
 // This is not a method
 func NewTask(name string, description string) *Task {
+	isTaskFile := IsTaskFileExist()
+	if isTaskFile != true {
+		panic("Didn't create a new file")
+	}
 	// should check for last id in the json file
-
 	task := Task{
 		Id:          1, // change this to check for id
 		Name:        name,
@@ -54,7 +58,7 @@ func NewTask(name string, description string) *Task {
 	return &task
 }
 
-func IsTaskFile() (bool, error) {
+func IsTaskFileExist() bool {
 	filepath := "tasks.json"
 	data, err := os.Open(filepath)
 	if err != nil {
@@ -65,8 +69,7 @@ func IsTaskFile() (bool, error) {
 			panic(err)
 		}
 		defer newTaskFile.Close()
-		defer data.Close()
-		return false, err
 	}
-	return true, nil
+	defer data.Close()
+	return true
 }
