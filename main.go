@@ -26,8 +26,6 @@ func main() {
 	}
 	// readFile()
 	// printLogFile()
-	newTask()
+	// newTask()
+	readJson()
 }
-
-// TODO:
-// - [] How to edit files in goLang
