@@ -33,7 +33,7 @@ const (
 
 // TODO:
 // - [] methods for Task
-// 	- [] Add new task
+// 	- [x] Add new task
 // 	- [] Update an old task based on Id
 // 	- [] Delete a task based on id
 // 	- [] List all tasks
@@ -42,7 +42,6 @@ const (
 // 	- [] List all tasks that are done [2]
 // - [] cli repl question that asks for name of new task and the description
 
-// This is not a method
 func NewTask(name string, description string) *Task {
 	isTaskFile := IsTaskFileExist()
 	if isTaskFile != true {
@@ -121,4 +120,25 @@ func AddToTasks(task Task) {
 		return
 	}
 	fmt.Println("Added new task to tasks.json")
+}
+
+// update task by id
+// get task index by id then update it
+func GetTaskIndexById(id int) int {
+	filepath := "tasks.json"
+	var tasks []Task
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&tasks)
+	if err != nil {
+		fmt.Println("Didn't decode tasks", err)
+	}
+	fmt.Println(tasks)
+	return 0
 }
