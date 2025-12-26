@@ -11,3 +11,7 @@ func TestGetTaskIndexById(t *testing.T) {
 	index := types.GetTaskIndexById(2)
 	fmt.Println("The index is:", index)
 }
+
+func TestUpdateTask(t *testing.T) {
+	types.UpdateTask(1, "updated to 1", nil)
+}

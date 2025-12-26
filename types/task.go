@@ -148,3 +148,45 @@ func GetTaskIndexById(id int) int {
 
 // TODO:
 // update the task based on the the index
+// if only one string is passed, it would be just the name,
+// if a second string is passed it would be the description
+func UpdateTask(id int, name string, description *string) {
+	index := GetTaskIndexById(id)
+	filepath := "tasks.json"
+	var tasks []Task
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&tasks)
+
+	if err != nil {
+		fmt.Println("Didn't decode tasks", err)
+	}
+	oldName := tasks[index].Name
+	tasks[index].UpdatedAt = time.Now()
+	tasks[index].Name = name
+	if description != nil {
+		tasks[index].Description = *description
+	}
+	for index, task := range tasks {
+		fmt.Printf("%v: %+v\n", index, task)
+	}
+
+	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
+		fmt.Printf("Error encoding JSON to %s\nERROR: %v", filepath, err)
+		return
+	}
+
+	err = os.WriteFile(filepath, updateTasksFile, 0644)
+	if err != nil {
+		fmt.Println("Error writing json to file:", err)
+		return
+	}
+	fmt.Printf("Updated %v to %v", oldName, tasks[index].Name)
+}
