@@ -123,7 +123,6 @@ func AddToTasks(task Task) {
 	fmt.Println("Added new task to tasks.json")
 }
 
-// update task by id
 // get task index by id then update it
 func GetTaskIndexById(id int) int {
 	filepath := "tasks.json"
@@ -146,3 +145,6 @@ func GetTaskIndexById(id int) int {
 	})
 	return index
 }
+
+// TODO:
+// update the task based on the the index
