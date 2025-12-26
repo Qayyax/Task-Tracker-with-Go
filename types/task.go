@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"slices"
 	"time"
 )
 
@@ -140,5 +141,8 @@ func GetTaskIndexById(id int) int {
 		fmt.Println("Didn't decode tasks", err)
 	}
 	fmt.Println(tasks)
-	return 0
+	index := slices.IndexFunc(tasks, func(t Task) bool {
+		return t.Id == id
+	})
+	return index
 }
