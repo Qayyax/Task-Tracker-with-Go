@@ -150,7 +150,7 @@ func GetTaskIndexById(id int) int {
 // update the task based on the the index
 // if only one string is passed, it would be just the name,
 // if a second string is passed it would be the description
-func UpdateTask(id int, name string, description *string) {
+func UpdateTask(id int, name string, description string) {
 	index := GetTaskIndexById(id)
 	filepath := "tasks.json"
 	var tasks []Task
@@ -170,8 +170,8 @@ func UpdateTask(id int, name string, description *string) {
 	oldName := tasks[index].Name
 	tasks[index].UpdatedAt = time.Now()
 	tasks[index].Name = name
-	if description != nil {
-		tasks[index].Description = *description
+	if description != "" {
+		tasks[index].Description = description
 	}
 	for index, task := range tasks {
 		fmt.Printf("%v: %+v\n", index, task)
