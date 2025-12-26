@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/Qayyax/Task-Tracker-with-Go/types"
 )
 
 func TestGetTaskIndexById(t *testing.T) {
-	types.GetTaskIndexById(0)
+	index := types.GetTaskIndexById(2)
+	fmt.Println("The index is:", index)
 }
