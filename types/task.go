@@ -35,7 +35,7 @@ const (
 // TODO:
 // - [] methods for Task
 // 	- [x] Add new task
-// 	- [] Update an old task based on Id
+// 	- [x] Update an old task based on Id
 // 	- [] Delete a task based on id
 // 	- [] List all tasks
 // 	- [] List all tasks that are not done [0]
@@ -58,8 +58,6 @@ func NewTask(name string, description string) *Task {
 		UpdatedAt:   time.Now(),
 	}
 	return &task
-	// TODO:
-	// ADD this task to tasks.json
 }
 
 func IsTaskFileExist() bool {
@@ -146,12 +144,15 @@ func GetTaskIndexById(id int) int {
 	return index
 }
 
-// TODO:
 // update the task based on the the index
 // if only one string is passed, it would be just the name,
 // if a second string is passed it would be the description
 func UpdateTask(id int, name string, description string) {
 	index := GetTaskIndexById(id)
+	if index < 0 {
+		// The id can't be found in the tasks
+		return
+	}
 	filepath := "tasks.json"
 	var tasks []Task
 
@@ -189,4 +190,9 @@ func UpdateTask(id int, name string, description string) {
 		return
 	}
 	fmt.Printf("Updated %v to %v", oldName, tasks[index].Name)
+}
+
+// Delete a task by ID
+func DeleteTask(id int) {
+
 }

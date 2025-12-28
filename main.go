@@ -11,8 +11,6 @@ import (
 func main() {
 	fmt.Println("Testing the Task struct")
 	// cli to ask for task name, task description
-	// task1 := types.NewTask("First task", "Just to see if this works")
-	// fmt.Println("Name from new Task", task1.Name)
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Printf("What is the name of your first task: ")
 	scanner.Scan()
