@@ -227,10 +227,16 @@ func GetTasks() ([]Task, error) {
 	return tasks, err
 }
 
-// update status by id
-// [0] todo, [1] in-progress, [2] done
-// it would take the id, and the option (0, 1, 2)
-// Would use switch case statement to switch task
+/*
+Update status by id
+
+it would take the id, and the option (0, 1, 2)
+Would use switch case statement to switch task
+
+id - Task id
+
+option - [0] todo, [1] in-progress, [2] done
+*/
 func UpdateTaskStatus(id, option int) {
 	index := GetTaskIndexById(id)
 	if index < 0 {

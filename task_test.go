@@ -19,3 +19,6 @@ func TestUpdateTask(t *testing.T) {
 func TestDeleteTask(t *testing.T) {
 	types.DeleteTask(-1)
 }
+func TestUpdateStatus(t *testing.T) {
+	types.UpdateTaskStatus(1, 3)
+}
