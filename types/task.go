@@ -36,7 +36,8 @@ const (
 // - [] methods for Task
 // 	- [x] Add new task
 // 	- [x] Update an old task based on Id
-// 	- [] Delete a task based on id
+// 	- [x] Delete a task based on id
+// 	- [] update status based on id
 // 	- [] List all tasks
 // 	- [] List all tasks that are not done [0]
 // 	- [] List all tasks that are in progress [1]
@@ -141,12 +142,13 @@ func UpdateTask(id int, name string, description string) {
 	index := GetTaskIndexById(id)
 	if index < 0 {
 		// The id can't be found in the tasks
+		fmt.Println("Id does not exist")
 		return
 	}
 	filepath := "tasks.json"
 	tasks, err := GetTasks()
 	if err != nil {
-		fmt.Println("Didn't decode tasks", err)
+		fmt.Println("Failed to fetch tasks", err)
 		return
 	}
 	oldName := tasks[index].Name
@@ -223,4 +225,49 @@ func GetTasks() ([]Task, error) {
 	err = decoder.Decode(&tasks)
 
 	return tasks, err
+}
+
+// update status by id
+// [0] todo, [1] in-progress, [2] done
+// it would take the id, and the option (0, 1, 2)
+// Would use switch case statement to switch task
+func UpdateTaskStatus(id, option int) {
+	index := GetTaskIndexById(id)
+	if index < 0 {
+		fmt.Println("ID does not exist")
+		return
+	}
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Printf("Failed to get all tasks")
+		return
+	}
+
+	switch option {
+	case 0:
+		tasks[index].Status = Todo
+		fmt.Printf("Task id: %v status updated to 'Todo'", id)
+	case 1:
+		tasks[index].Status = InProgress
+		fmt.Printf("Task id: %v status updated to 'In progress'", id)
+	case 2:
+		tasks[index].Status = Done
+		fmt.Printf("Task id: %v status updated to 'Done'", id)
+	default:
+		fmt.Println("Invalid option")
+		return
+	}
+
+	filepath := "tasks.json"
+	updatedTaskFile, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
+		fmt.Println("Failed to convert tasks to json", err)
+		return
+	}
+	err = os.WriteFile(filepath, updatedTaskFile, 0644)
+	if err != nil {
+		fmt.Println("Error writing updated task json to file", err)
+		return
+	}
+	fmt.Println("Successfully updated task status")
 }
