@@ -15,3 +15,7 @@ func TestGetTaskIndexById(t *testing.T) {
 func TestUpdateTask(t *testing.T) {
 	types.UpdateTask(1, "New Day 1", "Nobara is looking at me")
 }
+
+func TestDeleteTask(t *testing.T) {
+	types.DeleteTask(2)
+}

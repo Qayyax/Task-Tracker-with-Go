@@ -180,19 +180,33 @@ func UpdateTask(id int, name string, description string) {
 }
 
 // Delete a task by ID
-// func DeleteTask(id int) {
-// 	index := GetTaskIndexById(id)
-// 	if index < 0 {
-// 		fmt.Println("Can't delete task with invalid id")
-// 		fmt.Println("Please enter a valid id")
-// 		return
-// 	}
-// 	tasks, err := GetTasks()
-// 	if err != nil {
-// 		fmt.Printf("Error decoding JSON", err)
-// 		return
-// 	}
-// }
+func DeleteTask(id int) {
+	index := GetTaskIndexById(id)
+	filepath := "tasks.json"
+	if index < 0 {
+		fmt.Println("Can't delete task with invalid id")
+		fmt.Println("Please enter a valid id")
+		return
+	}
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Println("Error decoding JSON", err)
+		return
+	}
+	tasks = slices.Delete(tasks, index, index+1)
+	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
+		fmt.Printf("Error encoding JSON to %s\nERROR: %v", filepath, err)
+		return
+	}
+
+	err = os.WriteFile(filepath, updateTasksFile, 0644)
+	if err != nil {
+		fmt.Println("Error writing json to file:", err)
+		return
+	}
+	fmt.Println("Successfully deleted task", id)
+}
 
 // Get all tasks from json
 func GetTasks() ([]Task, error) {
