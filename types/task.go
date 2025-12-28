@@ -123,17 +123,7 @@ func AddToTasks(task Task) {
 
 // get task index by id then update it
 func GetTaskIndexById(id int) int {
-	filepath := "tasks.json"
-	var tasks []Task
-
-	file, err := os.Open(filepath)
-	if err != nil {
-		fmt.Println("Error opening file", err)
-	}
-	defer file.Close()
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&tasks)
+	tasks, err := GetTasks()
 	if err != nil {
 		fmt.Println("Didn't decode tasks", err)
 	}
@@ -154,19 +144,10 @@ func UpdateTask(id int, name string, description string) {
 		return
 	}
 	filepath := "tasks.json"
-	var tasks []Task
-
-	file, err := os.Open(filepath)
-	if err != nil {
-		fmt.Println("Error opening file", err)
-	}
-	defer file.Close()
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&tasks)
-
+	tasks, err := GetTasks()
 	if err != nil {
 		fmt.Println("Didn't decode tasks", err)
+		return
 	}
 	oldName := tasks[index].Name
 	tasks[index].UpdatedAt = time.Now()
@@ -175,7 +156,13 @@ func UpdateTask(id int, name string, description string) {
 		tasks[index].Description = description
 	}
 	for index, task := range tasks {
-		fmt.Printf("%v: %+v\n", index, task)
+		fmt.Println("=========")
+		fmt.Printf("%v: \n", index)
+		fmt.Println(task.Id)
+		fmt.Println(task.Name)
+		fmt.Println(task.Description)
+		fmt.Println(task.UpdatedAt)
+		fmt.Println("=========")
 	}
 
 	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")
@@ -193,6 +180,33 @@ func UpdateTask(id int, name string, description string) {
 }
 
 // Delete a task by ID
-func DeleteTask(id int) {
+// func DeleteTask(id int) {
+// 	index := GetTaskIndexById(id)
+// 	if index < 0 {
+// 		fmt.Println("Can't delete task with invalid id")
+// 		fmt.Println("Please enter a valid id")
+// 		return
+// 	}
+// 	tasks, err := GetTasks()
+// 	if err != nil {
+// 		fmt.Printf("Error decoding JSON", err)
+// 		return
+// 	}
+// }
 
+// Get all tasks from json
+func GetTasks() ([]Task, error) {
+	filepath := "tasks.json"
+	var tasks []Task
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&tasks)
+
+	return tasks, err
 }
