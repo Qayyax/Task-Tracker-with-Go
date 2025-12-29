@@ -37,7 +37,7 @@ const (
 // 	- [x] Add new task
 // 	- [x] Update an old task based on Id
 // 	- [x] Delete a task based on id
-// 	- [] update status based on id
+// 	- [x] update status based on id
 // 	- [] List all tasks
 // 	- [] List all tasks that are not done [0]
 // 	- [] List all tasks that are in progress [1]
@@ -276,4 +276,35 @@ func UpdateTaskStatus(id, option int) {
 		return
 	}
 	fmt.Println("Successfully updated task status")
+}
+
+// Function to list all tasks
+func ListAllTask() {
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Println("Unable to get all tasks")
+		return
+	}
+
+	if len(tasks) < 1 {
+		fmt.Println("You have no tasks")
+		return
+	}
+
+	for _, task := range tasks {
+		fmt.Printf("You have the %v tasks\n", len(tasks))
+		fmt.Println("-------------")
+		fmt.Printf("Id: %v\n", task.Id)
+		fmt.Printf("Name: %v\n", task.Name)
+		fmt.Printf("Description: %v\n", task.Description)
+		switch task.Status {
+		case Todo:
+			fmt.Printf("Status: Todo\n")
+		case InProgress:
+			fmt.Printf("Status: In-progress\n")
+		case Done:
+			fmt.Printf("Status: Done\n")
+		}
+		fmt.Println("-------------")
+	}
 }
