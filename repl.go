@@ -27,4 +27,32 @@ func repl() {
 
 	`
 	fmt.Println(cliAscii)
+	info := `
+	Welcome to Task-cli. To get started use the following command
+
+	'help' - To list all the commands
+	'exit' - To exit 
+	`
+
+	commands := `
+	'add'	 - add [name] [description (optional)]
+				This adds a new task to your list. You can pass a description if you want
+
+	'update'	 - update [task-id] [name] [description (optional)]
+				This updates an existing task name by id. You can update the desctiption as well 
+
+	'delete'  - delete [task-id]
+				This deletes an existing task by id.  
+
+	'mark-todo' 			 - mark-todo [task-id]
+	'mark-in-progress' - mark-in-progress [task-id]
+	'mark-done' 			 - mark-done [task-id]
+
+	'list'						 - list 
+				This lists all the tasks you have
+	 			list has optional arguments
+				list todo
+				list in-progress
+				list done
+	`
 }
