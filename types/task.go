@@ -33,15 +33,15 @@ const (
 )
 
 // TODO:
-// - [] methods for Task
+// - [x] methods for Task
 // 	- [x] Add new task
 // 	- [x] Update an old task based on Id
 // 	- [x] Delete a task based on id
 // 	- [x] update status based on id
 // 	- [x] List all tasks
-// 	- [] List all tasks that are not done [0]
-// 	- [] List all tasks that are in progress [1]
-// 	- [] List all tasks that are done [2]
+// 	- [x] List all tasks that are not done [0]
+// 	- [x] List all tasks that are in progress [1]
+// 	- [x] List all tasks that are done [2]
 // - [] cli repl question that asks for name of new task and the description
 
 func NewTask(name string, description string) *Task {
