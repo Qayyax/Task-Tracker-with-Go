@@ -1,19 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
-// make the following functions
-// add - one or 2 positional argument  (add name and description)
-// update - 2 or 3 positional argument (update id name description)
-// delete - 1 positional argument (delete id)
-// mark-todo - 1 positional argument (mark-todo id)
-// mark-in-progress - 1 positional argument (mark-in-progress id)
-// mark-done - 1 positional argument (mark-done id)
-// list - no positional argument (list)
-// positional arguments for list
-// list todo
-// list in-progress
-// list done
 func repl() {
 	cliAscii := `
  /$$$$$$$$                  /$$               /$$$$$$  /$$       /$$$$$$
@@ -55,4 +48,38 @@ func repl() {
 				list in-progress
 				list done
 	`
+
+	scanner := bufio.NewScanner(os.Stdin)
+
+	fmt.Println(info)
+	for {
+		fmt.Print("task-cli ")
+
+		if !scanner.Scan() {
+			if err := scanner.Err(); err != nil {
+				fmt.Fprintln(os.Stderr, "Error reading input:", err)
+			} else {
+				fmt.Println("\nstdin closed (EOF). Bye!")
+			}
+			break
+		}
+
+		input := strings.TrimSpace(scanner.Text())
+		fmt.Println(input)
+		if input == "" {
+			continue
+		}
+
+		if input == "exit" {
+			fmt.Println("See you again")
+			return
+		}
+
+		if input == "help" {
+			fmt.Println(commands)
+			continue
+		}
+		// if input has more than one argument,
+		// run based on that
+	}
 }
