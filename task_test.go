@@ -2,8 +2,6 @@ package main
 
 import (
 	"testing"
-
-	"github.com/Qayyax/Task-Tracker-with-Go/types"
 )
 
 //	func TestGetTaskIndexById(t *testing.T) {
@@ -22,6 +20,10 @@ import (
 //	func TestUpdateStatus(t *testing.T) {
 //		types.UpdateTaskStatus(1, 3)
 //	}
-func TestListAllTasks(t *testing.T) {
-	types.ListAllTask()
+// func TestListAllTasks(t *testing.T) {
+// 	types.ListAllTask()
+// }
+
+func TestRepl(t *testing.T) {
+	repl()
 }
