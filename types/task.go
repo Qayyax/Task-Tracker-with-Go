@@ -38,7 +38,7 @@ const (
 // 	- [x] Update an old task based on Id
 // 	- [x] Delete a task based on id
 // 	- [x] update status based on id
-// 	- [] List all tasks
+// 	- [x] List all tasks
 // 	- [] List all tasks that are not done [0]
 // 	- [] List all tasks that are in progress [1]
 // 	- [] List all tasks that are done [2]
@@ -292,7 +292,7 @@ func ListAllTask() {
 	}
 
 	for _, task := range tasks {
-		fmt.Printf("You have the %v tasks\n", len(tasks))
+		fmt.Printf("You have %v tasks\n", len(tasks))
 		fmt.Println("-------------")
 		fmt.Printf("Id: %v\n", task.Id)
 		fmt.Printf("Name: %v\n", task.Name)
@@ -307,4 +307,85 @@ func ListAllTask() {
 		}
 		fmt.Println("-------------")
 	}
+}
+
+func ListAllTasksNotDone() {
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Println("Unable to get all tasks")
+		return
+	}
+
+	if len(tasks) < 1 {
+		fmt.Println("You have no tasks")
+		return
+	}
+
+	var tasksNotDone []Task
+
+	for _, task := range tasks {
+		if task.Status == Todo {
+			tasksNotDone = append(tasksNotDone, task)
+			fmt.Println("-------------")
+			fmt.Printf("Id: %v\n", task.Id)
+			fmt.Printf("Name: %v\n", task.Name)
+			fmt.Printf("Description: %v\n", task.Description)
+			fmt.Println("-------------")
+		}
+	}
+	fmt.Printf("You have %v tasks not done\n", len(tasksNotDone))
+}
+
+func ListAllTasksInProgress() {
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Println("Unable to get all tasks")
+		return
+	}
+
+	if len(tasks) < 1 {
+		fmt.Println("You have no tasks")
+		return
+	}
+
+	var tasksInProgress []Task
+
+	for _, task := range tasks {
+		if task.Status == InProgress {
+			tasksInProgress = append(tasksInProgress, task)
+			fmt.Println("-------------")
+			fmt.Printf("Id: %v\n", task.Id)
+			fmt.Printf("Name: %v\n", task.Name)
+			fmt.Printf("Description: %v\n", task.Description)
+			fmt.Println("-------------")
+		}
+	}
+	fmt.Printf("You have %v tasks in-progress\n", len(tasksInProgress))
+}
+
+func ListAllTasksDone() {
+	tasks, err := GetTasks()
+	if err != nil {
+		fmt.Println("Unable to get all tasks")
+		return
+	}
+
+	if len(tasks) < 1 {
+		fmt.Println("You have no tasks")
+		return
+	}
+
+	var tasksCompleted []Task
+
+	for _, task := range tasks {
+		if task.Status == InProgress {
+			tasksCompleted = append(tasksCompleted, task)
+			fmt.Println("-------------")
+			fmt.Printf("Id: %v\n", task.Id)
+			fmt.Printf("Name: %v\n", task.Name)
+			fmt.Printf("Description: %v\n", task.Description)
+			fmt.Println("-------------")
+		}
+	}
+	fmt.Printf("You have %v tasks marked as done\n", len(tasksCompleted))
 }
