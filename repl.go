@@ -2,9 +2,12 @@ package main
 
 import (
 	"bufio"
+	"encoding/csv"
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/Qayyax/Task-Tracker-with-Go/types"
 )
 
 func repl() {
@@ -65,21 +68,60 @@ func repl() {
 		}
 
 		input := strings.TrimSpace(scanner.Text())
-		fmt.Println(input)
+		args, err := splitArgs(input)
+		if err != nil {
+			fmt.Println("Invalid argument")
+			continue
+		}
+		fmt.Println(args)
 		if input == "" {
 			continue
 		}
 
-		if input == "exit" {
+		command := args[0]
+		if command == "exit" {
 			fmt.Println("See you again")
 			return
 		}
 
-		if input == "help" {
+		if command == "help" {
 			fmt.Println(commands)
 			continue
 		}
+
 		// if input has more than one argument,
 		// run based on that
+		// use the args
+		// ADD command
+		if command == "add" {
+			if len(args) > 1 {
+				name := args[1]
+				description := ""
+				if len(args) > 2 {
+					fmt.Println(args[1])
+					fmt.Println(args[2])
+					description = args[2]
+				}
+				task := types.NewTask(name, description)
+				types.AddToTasks(*task)
+			} else {
+				fmt.Println("Invalid use of command use 'help'")
+				continue
+			}
+		}
+
+		// UPDATE command
+		// DELETE command
+		// MARK-TODO command
+		// MARK-IN-PROGRESS command
+		// MARK-DONE command
 	}
+}
+
+func splitArgs(input string) ([]string, error) {
+	r := csv.NewReader(strings.NewReader(input))
+	r.Comma = ' '
+	r.LazyQuotes = true
+
+	return r.Read()
 }
