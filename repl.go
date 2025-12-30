@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/Qayyax/Task-Tracker-with-Go/types"
@@ -111,6 +112,26 @@ func repl() {
 		}
 
 		// UPDATE command
+		if command == "update" {
+			if len(args) > 2 {
+				taskId := args[1]
+				name := args[2]
+				description := ""
+				if len(args) > 3 {
+					description = args[3]
+				}
+				taskIdNum, err := strconv.Atoi(taskId)
+
+				if err != nil {
+					fmt.Println("Input valid id number", err)
+					continue
+				}
+				types.UpdateTask(taskIdNum, name, description)
+			} else {
+				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+
+		}
 		// DELETE command
 		// MARK-TODO command
 		// MARK-IN-PROGRESS command

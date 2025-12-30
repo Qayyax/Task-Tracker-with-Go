@@ -157,15 +157,12 @@ func UpdateTask(id int, name string, description string) {
 	if description != "" {
 		tasks[index].Description = description
 	}
-	for index, task := range tasks {
-		fmt.Println("=========")
-		fmt.Printf("%v: \n", index)
-		fmt.Println(task.Id)
-		fmt.Println(task.Name)
-		fmt.Println(task.Description)
-		fmt.Println(task.UpdatedAt)
-		fmt.Println("=========")
-	}
+	fmt.Println("=========")
+	fmt.Println(tasks[index].Id)
+	fmt.Println(tasks[index].Name)
+	fmt.Println(tasks[index].Description)
+	fmt.Println(tasks[index].UpdatedAt)
+	fmt.Println("=========")
 
 	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")
 	if err != nil {
@@ -178,7 +175,7 @@ func UpdateTask(id int, name string, description string) {
 		fmt.Println("Error writing json to file:", err)
 		return
 	}
-	fmt.Printf("Updated %v to %v", oldName, tasks[index].Name)
+	fmt.Printf("Updated %v to %v\n", oldName, tasks[index].Name)
 }
 
 // Delete a task by ID
