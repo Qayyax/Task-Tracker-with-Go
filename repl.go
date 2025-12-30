@@ -133,6 +133,19 @@ func repl() {
 
 		}
 		// DELETE command
+		if command == "delete" {
+			if len(args) > 1 {
+				taskId := args[1]
+				taskIdNum, err := strconv.Atoi(taskId)
+				if err != nil {
+					fmt.Println("Input valid id number", err)
+					continue
+				}
+				types.DeleteTask(taskIdNum)
+			} else {
+				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+		}
 		// MARK-TODO command
 		// MARK-IN-PROGRESS command
 		// MARK-DONE command
