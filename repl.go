@@ -147,8 +147,47 @@ func repl() {
 			}
 		}
 		// MARK-TODO command
+		if command == "mark-todo" {
+			if len(args) > 1 {
+				taskId := args[1]
+				taskIdNum, err := strconv.Atoi(taskId)
+				if err != nil {
+					fmt.Println("Input valid id number", err)
+					continue
+				}
+				types.UpdateTaskStatus(taskIdNum, 0)
+			} else {
+				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+		}
 		// MARK-IN-PROGRESS command
+		if command == "mark-in-progress" {
+			if len(args) > 1 {
+				taskId := args[1]
+				taskIdNum, err := strconv.Atoi(taskId)
+				if err != nil {
+					fmt.Println("Input valid id number", err)
+					continue
+				}
+				types.UpdateTaskStatus(taskIdNum, 1)
+			} else {
+				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+		}
 		// MARK-DONE command
+		if command == "mark-done" {
+			if len(args) > 1 {
+				taskId := args[1]
+				taskIdNum, err := strconv.Atoi(taskId)
+				if err != nil {
+					fmt.Println("Input valid id number", err)
+					continue
+				}
+				types.UpdateTaskStatus(taskIdNum, 2)
+			} else {
+				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+		}
 	}
 }
 
