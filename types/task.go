@@ -128,7 +128,6 @@ func GetTaskIndexById(id int) int {
 	if err != nil {
 		fmt.Println("Didn't decode tasks", err)
 	}
-	fmt.Println(tasks)
 	index := slices.IndexFunc(tasks, func(t Task) bool {
 		return t.Id == id
 	})
@@ -158,10 +157,10 @@ func UpdateTask(id int, name string, description string) {
 		tasks[index].Description = description
 	}
 	fmt.Println("=========")
-	fmt.Println(tasks[index].Id)
-	fmt.Println(tasks[index].Name)
-	fmt.Println(tasks[index].Description)
-	fmt.Println(tasks[index].UpdatedAt)
+	fmt.Println("Id: ", tasks[index].Id)
+	fmt.Println("name: ", tasks[index].Name)
+	fmt.Println("Description: ", tasks[index].Description)
+	fmt.Println("Updated At: ", tasks[index].UpdatedAt)
 	fmt.Println("=========")
 
 	updateTasksFile, err := json.MarshalIndent(tasks, "", " ")

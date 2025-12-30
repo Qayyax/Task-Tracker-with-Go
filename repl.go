@@ -74,7 +74,7 @@ func repl() {
 			fmt.Println("Invalid argument")
 			continue
 		}
-		fmt.Println(args)
+
 		if input == "" {
 			continue
 		}
