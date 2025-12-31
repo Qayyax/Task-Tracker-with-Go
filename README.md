@@ -4,7 +4,7 @@ A simple REPL-based CLI to manage tasks (add, update, delete, list, mark status)
 
 This project was my introduction to Go; I learned the language syntax while building it.
 
-[REPO]("https://github.com/Qayyax/Task-Tracker-with-Go")
+[PROJECT URL]("https://roadmap.sh/projects/task-tracker")
 
 ## Features
 
