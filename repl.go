@@ -57,6 +57,8 @@ func repl() {
 
 	fmt.Println(info)
 	for {
+		fmt.Println("------------")
+		fmt.Println()
 		fmt.Print("task-cli ")
 
 		if !scanner.Scan() {
@@ -186,6 +188,26 @@ func repl() {
 				types.UpdateTaskStatus(taskIdNum, 2)
 			} else {
 				fmt.Println("Invalid use of command use 'help' for more info")
+			}
+		}
+
+		// LIST command
+		if command == "list" {
+			if len(args) == 1 {
+				types.ListAllTask()
+			}
+			if len(args) > 1 {
+				listOption := args[1]
+				switch listOption {
+				case "todo":
+					types.ListAllTasksNotDone()
+				case "in-progress":
+					types.ListAllTasksInProgress()
+				case "done":
+					types.ListAllTasksDone()
+				default:
+					fmt.Println("Invalid command, use 'help' for more info")
+				}
 			}
 		}
 	}
