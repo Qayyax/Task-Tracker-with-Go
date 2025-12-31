@@ -4,6 +4,8 @@ A simple REPL-based CLI to manage tasks (add, update, delete, list, mark status)
 
 This project was my introduction to Go; I learned the language syntax while building it.
 
+[REPO]("https://github.com/Qayyax/Task-Tracker-with-Go")
+
 ## Features
 
 - Add tasks with an optional description
@@ -60,6 +62,7 @@ list done
 ```
 
 Tips:
+
 - Wrap multi-word names or descriptions in quotes.
 - `description` is optional for `add` and `update`.
 
